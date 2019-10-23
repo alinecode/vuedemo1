@@ -58,8 +58,8 @@ methods: {
 	showIm(){
 	
 	layui.use('layim', function(layim) {
-				console.log("当前登录账户用户名6666666666666666666666666666666");
-				console.log(this.formInline.account);
+				// console.log("当前登录账户用户名6666666666666666666666666666666");
+				// console.log(this.formInline.account);
 				var aa=this.formInline.account;
 				var socket = new WebSocket(this.chatpath+aa);
 
@@ -141,13 +141,13 @@ methods: {
 				//监听发送消息
 				layim.on('sendMessage', function(res) {
 					//					var To = data.to;
-					//					console.log(data);
-					console.log("发送者信息");
+					//					// console.log(data);
+					// console.log("发送者信息");
 					var mine = res.mine;
-					console.log(mine);
-					console.log("接收者信息");
+					// console.log(mine);
+					// console.log("接收者信息");
 					var to = res.to;
-					console.log(to);
+					// console.log(to);
 					socket.send(JSON.stringify({
 						type: 'chatMessage' //随便定义，用于在服务端区分消息类型
 							,
@@ -185,7 +185,7 @@ methods: {
 
 				//监听在线状态的切换事件
 				layim.on('online', function(data) {
-					console.log(data);
+					// console.log(data);
 				});
 
 				//la   
@@ -195,23 +195,23 @@ methods: {
 					socket.onmessage = function(res) {
 						//		
 						res = JSON.parse(res.data);
-						console.log('receive')
-						console.log(res);
+						// console.log('receive')
+						// console.log(res);
 						//  res = eval('(' + res + ')');
-						console.log("返回的消息res");
-						console.log(res);
-						console.log("返回的data");
-						console.log(res.data);
-						//						console.log("用户名");
-						//						console.log(res.data.mine.username);
-						//						console.log("消息ID");
-						//						console.log(res.data.mine.id);
-						//						console.log("接收方");
-						//						console.log(res.data.to);
-						//						console.log("--------");
+						// console.log("返回的消息res");
+						// console.log(res);
+						// console.log("返回的data");
+						// console.log(res.data);
+						//						// console.log("用户名");
+						//						// console.log(res.data.mine.username);
+						//						// console.log("消息ID");
+						//						// console.log(res.data.mine.id);
+						//						// console.log("接收方");
+						//						// console.log(res.data.to);
+						//						// console.log("--------");
 
-						console.log("res.type:");
-						console.log(res.type);
+						// console.log("res.type:");
+						// console.log(res.type);
 						if(res.type === 'chatMessage') {
 							var obj = {};
 							obj = {
@@ -238,16 +238,16 @@ methods: {
 								timestamp: new Date().getTime()
 
 							}
-							console.log("执行判断操作了");
-							//console.log(res.data.mine);
-//							console.log("+++++");
-							console.log(res.isSelf);
+							// console.log("执行判断操作了");
+							//// console.log(res.data.mine);
+//							// console.log("+++++");
+							// console.log(res.isSelf);
 							if(!res.isSelf) {
 								layim.getMessage(obj);
 							}
 						} else if(res.type == "online") {
-//							console.log("+++++online");
-							console.log(res);
+//							// console.log("+++++online");
+							// console.log(res);
 
 							let user = {
 								type: 'friend',
@@ -260,8 +260,8 @@ methods: {
 
 							layim.addList(user);
 						}else if(res.type == "offline") {
-//							console.log("+++++offline");
-							console.log(res);
+//							// console.log("+++++offline");
+							// console.log(res);
 
 							layim.removeList({
 									  type: 'friend' //或者group
@@ -279,7 +279,7 @@ methods: {
 
 			 //连接关闭
 	          socket.onclose = function(event) {
-	          	console.log('666666666666666666666666666666666666666666666');
+	          	// console.log('666666666666666666666666666666666666666666666');
 //				   socket.send(JSON.stringify({
 //						type: 'closeMessage'
 //							,
@@ -320,18 +320,18 @@ methods: {
 
 				//监听查看群员
 				layim.on('members', function(data) {
-					console.log(data);
+					// console.log(data);
 				});
 
 				//监听聊天窗口的切换
 				layim.on('chatChange', function(data) {
-					console.log(data);
+					// console.log(data);
 				});
 
 
 
 				$('#imOnline').on('click', function() {
-					console.log(layim.layimMain);
+					// console.log(layim.layimMain);
 				})
 
 			}.bind(this));
@@ -357,14 +357,14 @@ methods: {
 		
 		var aa=Date.now();
 		
-		console.log(aa);
-		console.log(aa);
+		// console.log(aa);
+		// console.log(aa);
 		
 	  if(typeof(WebSocket) == "undefined") {
-        console.log("您的浏览器不支持WebSocket");  
+        // console.log("您的浏览器不支持WebSocket");  
         
     	}else{
-        console.log("您的浏览器支持WebSocket");  
+        // console.log("您的浏览器支持WebSocket");  
         
 //      return;
         
@@ -373,21 +373,21 @@ methods: {
         
        		//打开事件  
             this.socket.onopen = function() {
-                console.log("Socket 已打开");  
+                // console.log("Socket 已打开");  
                 //socket.send("这是来自客户端的消息" + location.href + new Date());  
             };  
             //获得消息事件  
             this.socket.onmessage = function(msg) {
-                console.log(msg.data);  
+                // console.log(msg.data);  
                 //发现消息进入    开始处理前端触发逻辑
             };  
             //关闭事件  
             this.socket.onclose = function() {
-                console.log("Socket已关闭");  
+                // console.log("Socket已关闭");  
             };  
             //发生了错误事件  
             this.socket.onerror = function() {
-                console.log("Socket发生了错误");  
+                // console.log("Socket发生了错误");  
                 //此时可以尝试刷新页面
             } 
         
@@ -412,8 +412,8 @@ methods: {
             }).then(res => {
             	
             	
-            	console.info('后台返回的数据', res.data);
-            	console.log(res);
+            	// console.info('后台返回的数据', res.data);
+            	// console.log(res);
             	if(!res.data){
             		
             	this.$Message.error('账号密码错误');
@@ -422,15 +422,15 @@ methods: {
             		
                this.$Message.success('Success!');
                this.$router.replace('/index');
-               this.showIm();
+//             this.showIm(); // 打开聊天
               }
             	
-                console.info("完毕");
+                // console.info("完毕");
             }).catch(err => {
             	this.$Message.error('网络异常!');
             	
-                console.info('报错的信息', err);
-                console.info('报错的信息', err.response.message);
+                // console.info('报错的信息', err);
+                // console.info('报错的信息', err.response.message);
             });
 				
 				
@@ -452,11 +452,11 @@ methods: {
             }).then(res => {
             	
             	
-            	console.info('后台返回的数据', res.data);
-            	console.log(res);
+            	// console.info('后台返回的数据', res.data);
+            	// console.log(res);
             	if(!res.data){
             		
-            	this.$Message.error('账号密码错误');
+            	this.$Message.error('无法注册该账号');
             		
             	}else{
             		
@@ -465,12 +465,12 @@ methods: {
                this.showIm();
               }
             	
-                console.info("完毕");
+                // console.info("完毕");
             }).catch(err => {
             	this.$Message.error('网络异常!');
             	
-                console.info('报错的信息', err);
-                console.info('报错的信息', err.response.message);
+                // console.info('报错的信息', err);
+                // console.info('报错的信息', err.response.message);
             });
 				
 				

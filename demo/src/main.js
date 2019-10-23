@@ -9,7 +9,9 @@ import axios from 'axios'
 
 import '../static/layui/css/layui.css'
 import '../static/layui/layui.js'
+//import '../static/js/jsonUtils.js'
 
+//import 'https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js'
 
 Vue.use(iView)
 Vue.config.productionTip = false
