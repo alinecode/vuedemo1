@@ -10,7 +10,7 @@
 </template>
 
 <script>
-	import {jsonExport,jsonImport} from '../router/jsonUtils.js'
+	import {jsonExport,jsonImport} from '@/api/jsonUtils.js'
 //	import {xxx} from '../static/layui/layui.js'
 	    export default {
         data () {

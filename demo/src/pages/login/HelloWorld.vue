@@ -69,10 +69,9 @@
 
 <script>
 	
-import tableTest from '@/components/TableTest'
-import {jsonExport,jsonImport} from '../router/jsonUtils.js'
-//import {jsonExport,jsonImport} from '/static/js/jsonUtils.js'
-
+import tableTest from '@/pages/login/TableTest'
+import {jsonExport,jsonImport} from '@/api/jsonUtils.js'
+//import DST from '@/api/DST.js'
 export default {
   name: 'HelloWorld',
   data () {
