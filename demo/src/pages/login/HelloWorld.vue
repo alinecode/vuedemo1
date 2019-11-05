@@ -4,6 +4,9 @@
     <h2>Essential Links</h2>
     <ul>
       <li>
+       <Button @click="switchMenu({menuName:'tableTest'})">导出测试</Button>
+      </li>
+      <li>
        <Button @click="daoru">导入测试</Button>
       </li>
       <li>
@@ -31,7 +34,7 @@
         </a>
       </li>
     </ul>
-    <div>
+    <div class="content" v-show="indexCurrentMenu.tableTest.contentView">
     	
     	<tableTest></tableTest>
     	
@@ -68,12 +71,21 @@
 </template>
 
 <script>
-	
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import tableTest from '@/pages/login/TableTest'
 import {jsonExport,jsonImport} from '@/api/jsonUtils.js'
 //import DST from '@/api/DST.js'
 export default {
   name: 'HelloWorld',
+  
+  computed: {
+  	...mapGetters({
+				indexCurrentMenu: 'indexCurrentMenu',
+				
+			}),
+  	
+  },
+  
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
@@ -105,6 +117,8 @@ export default {
     }
   },
   methods: {
+  	...mapActions(['switchMenu']),
+  	
   	
   	daoru(){
   		this.importModal = true;
