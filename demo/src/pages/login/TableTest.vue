@@ -5,6 +5,8 @@
         <Button @click="handleSelectAll(true)">全选</Button>
         <!--<Button @click="handleSelectAll(false)">Cancel all selected</Button>-->
         <Button @click="exportExcle">导出</Button>
+        
+        <Button @click="zcfTestCcom">向父组件传数据</Button>
     </div>
 	
 </template>
@@ -70,11 +72,25 @@
                 
                 slstatus:true,
                 
-                
+                zcounter : 0,
                 
             }
         },
         methods: {
+        	
+        	
+        	/**
+        	 * 
+        	 * 子传父子组件方法
+        	 * 
+        	 */
+        	zcfTestCcom(){
+        		
+        		 this.$emit("zcfTest","我是子数据"+(this.zcounter+=1));
+        		
+        	},
+        	
+        	
             handleSelectAll (status) {
             	
         		this.$refs.selection.selectAll(this.slstatus);

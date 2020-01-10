@@ -14,7 +14,7 @@
           href="http://vuex.vuejs.org/"
           target="_blank"
         >
-          vuex
+          {{zdata}}
         </a>
       </li>
       <li>
@@ -36,7 +36,7 @@
     </ul>
     <div class="content" v-show="indexCurrentMenu.tableTest.contentView">
     	
-    	<tableTest></tableTest>
+    	<tableTest @zcfTest="zcfTestPcom"></tableTest>
     	
     </div>
     
@@ -93,6 +93,9 @@ export default {
       importModal: false, //是否显示导入对话框
 			importExcelPercentage:0, //导入进度百分比
       importCurrentPage:0, //导入当前进度页
+      
+      zdata:"vuex",
+      
        columns5: [
                     {
                         type: 'selection',
@@ -119,10 +122,24 @@ export default {
   methods: {
   	...mapActions(['switchMenu']),
   	
+  	// 
+  	
   	
   	daoru(){
   		this.importModal = true;
   	},
+  	
+  	/**
+  	 * 子传父测试父组件方法
+  	 */
+  	zcfTestPcom(zdata){
+  		
+  		this.zdata = zdata;
+  		
+  	},
+  	
+  	
+  	
   	downloadTemplate(){
   		
   	},
