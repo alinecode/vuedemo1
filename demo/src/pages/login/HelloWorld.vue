@@ -36,7 +36,7 @@
     </ul>
     <div class="content" v-show="indexCurrentMenu.tableTest.contentView">
     	
-    	<tableTest @zcfTest="zcfTestPcom"></tableTest>
+    	<tableTest @zcfTest="zcfTestPcom" :fudata="fudata"></tableTest>
     	
     </div>
     
@@ -95,6 +95,8 @@ export default {
       importCurrentPage:0, //导入当前进度页
       
       zdata:"vuex",
+      
+      fudata:"我是父级数据",
       
        columns5: [
                     {

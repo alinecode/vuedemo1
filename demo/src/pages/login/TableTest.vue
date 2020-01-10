@@ -7,6 +7,9 @@
         <Button @click="exportExcle">导出</Button>
         
         <Button @click="zcfTestCcom">向父组件传数据</Button>
+        
+        <Button @click="showFdata">显示父组件传递数据</Button>
+        
     </div>
 	
 </template>
@@ -15,6 +18,19 @@
 	import {jsonExport,jsonImport} from '@/api/jsonUtils.js'
 //	import {xxx} from '../static/layui/layui.js'
 	    export default {
+	    	
+	    props:{
+	    	
+	    	fudata : {
+	    		
+	    		type:String,
+	    		default: ''
+	    		
+	    	}
+	    	
+	    },
+	    	
+	    	
         data () {
             return {
                 columns4: [
@@ -81,12 +97,22 @@
         	
         	/**
         	 * 
-        	 * 子传父子组件方法
+        	 * 子传父组件测试
         	 * 
         	 */
         	zcfTestCcom(){
         		
         		 this.$emit("zcfTest","我是子数据"+(this.zcounter+=1));
+        		
+        	},
+        	/**
+        	 * 
+        	 * 父传子组件测试
+        	 * 
+        	 */
+        	showFdata(){
+        		
+        		console.log(this.fudata);
         		
         	},
         	
