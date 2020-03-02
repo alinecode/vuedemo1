@@ -48,9 +48,9 @@ data() {
 			]
 		},
 		
-		path:"ws://192.168.9.76:9999/store-service/websocket"+"/",
+		path:"ws://192.168.9.80:9999/store-service/websocket"+"/",
         socket:"",
-		chatpath:"ws://192.168.9.76:9999/store-service/chat"+"/"
+		chatpath:"ws://192.168.9.80:9999/store-service/chat"+"/"
 	}
 },
 methods: {

@@ -10,6 +10,9 @@
        <Button @click="daoru">导入测试</Button>
       </li>
       <li>
+       <Button @click="childfun">子组件方法</Button>
+      </li>
+      <li>
         <a
           href="http://vuex.vuejs.org/"
           target="_blank"
@@ -36,7 +39,7 @@
     </ul>
     <div class="content" v-show="indexCurrentMenu.tableTest.contentView">
     	
-    	<tableTest @zcfTest="zcfTestPcom" :fudata="fudata"></tableTest>
+    	<tableTest @zcfTest="zcfTestPcom" :fudata="fudata" ref='tableTestref'></tableTest>
     	
     </div>
     
@@ -126,6 +129,11 @@ export default {
   	
   	// 
   	
+  	childfun(){
+  		
+  		this.$refs.tableTestref.childMethodTest('你好啊!');
+  		
+  	},
   	
   	daoru(){
   		this.importModal = true;

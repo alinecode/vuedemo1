@@ -93,7 +93,18 @@
             }
         },
         methods: {
+        	//
         	
+        	/**
+        	 * 
+        	 * 父调用子组件方法测试
+        	 * 
+        	 */
+        	childMethodTest(e){
+        		
+        		console.log('我是TableTest的childMethodTest，我被调用了-----'+e);
+        		
+        	},
         	
         	/**
         	 * 
