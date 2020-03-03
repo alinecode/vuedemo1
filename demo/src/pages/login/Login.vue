@@ -419,10 +419,14 @@ methods: {
             	this.$Message.error('账号密码错误');
             		
             	}else{
-            		
+            
+            // 本地存储login标志,用于拦截器(router里面，和main.js使用)
+               window.localStorage.setItem('login', true);
+            
                this.$Message.success('Success!');
                this.$router.replace('/index');
 //             this.showIm(); // 打开聊天
+
               }
             	
                 // console.info("完毕");

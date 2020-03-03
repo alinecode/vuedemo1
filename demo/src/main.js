@@ -14,6 +14,24 @@ import '../static/layui/layui.js'
 
 //import 'https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js'
 
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  const type = to.meta.type
+ 
+  if (type === 'login') {
+    if (window.localStorage.getItem('login')) {
+//  	console.log('66666');
+      next()
+    } else {
+      next('/login')
+    }
+  } else {
+    next() 
+  }
+})
+
 Vue.use(iView)
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
