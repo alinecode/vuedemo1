@@ -29,18 +29,11 @@
         </a>
       </li>
       <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
+				<Button @click="logout">退出</Button>
       </li>
     </ul>
     <div class="content" v-show="indexCurrentMenu.tableTest.contentView">
-    	
     	<tableTest @zcfTest="zcfTestPcom" :fudata="fudata" ref='tableTestref'></tableTest>
-    	
     </div>
     
    <!-- 导入数据 -->
@@ -148,7 +141,14 @@ export default {
   		
   	},
   	
-  	
+  	logout(){
+  		
+  		  window.localStorage.clear();
+  		  
+//		  this.$router.replace('/login');
+				this.$router.go(0);
+  		  
+  	},
   	
   	downloadTemplate(){
   		
