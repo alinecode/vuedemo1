@@ -31,6 +31,9 @@
       <li>
 				<Button @click="logout">退出</Button>
       </li>
+      <li>
+				<Button @click="sendasny">同步/异步测试</Button>
+      </li>
     </ul>
     <div class="content" v-show="indexCurrentMenu.tableTest.contentView">
     	<tableTest @zcfTest="zcfTestPcom" :fudata="fudata" ref='tableTestref'></tableTest>
@@ -120,6 +123,53 @@ export default {
   methods: {
   	...mapActions(['switchMenu']),
   	
+  
+  // 加async和await即可实现同步，不加则默认为异步
+  async sendasny(){
+  		
+  		for (var ii=0 ; ii<10 ;ii++) {
+  					
+  					// 后端打印，观察接收值的顺序是否是规律
+  				await this.$AL.post(
+							 '/user/test', //请求的地址
+//							method: 'post', //请求的方式
+							{aa:ii} //请求的表单数据
+						)
+					.then(res => {
+
+							// console.info('后台返回的数据', res.data);
+							// console.log(res);
+							if(!res.data) {
+
+								this.$Message.error('错误');
+
+							} else {
+								
+								console.log(res.data);
+								
+								// 本地存储login标志,用于拦截器(router里面，和main.js使用)
+//								window.localStorage.setItem('login', true);
+//
+//								this.$Message.success('Success!');
+//								this.$router.replace('/index');
+								//             this.showIm(); // 打开聊天
+
+							}
+
+							// console.info("完毕");
+						})
+  					.catch(err => {
+							this.$Message.error('网络异常!');
+
+							 console.info('报错的信息', err);
+							// console.info('报错的信息', err.response.message);
+						}); 
+  		
+  				}
+  		
+  		
+  	},
+  	
   	// 
   	
   	childfun(){
@@ -142,7 +192,7 @@ export default {
   	},
   	
   	logout(){
-  		
+  			
   		  window.localStorage.clear();
   		  
 //		  this.$router.replace('/login');
@@ -214,6 +264,11 @@ export default {
         	
         	// 开始提交数据
         	
+        	
+        	return ;
+        	
+        	
+        	// 修改
         	this.$axios({
                 url: '/excel/importExcel',//请求的地址
                 method: 'post',//请求的方式
