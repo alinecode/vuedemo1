@@ -124,13 +124,15 @@ export default {
   	...mapActions(['switchMenu']),
   	
   
-  // 加async和await即可实现同步，不加则默认为异步
-  async sendasny(){
+  // 加async和await即可实现同步，不加则默认为异步  https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/await
+  sendasny(){
   		
+  		// 循环请求10次
   		for (var ii=0 ; ii<10 ;ii++) {
-  					
+  					this.$Message.info('请求第'+(ii+1)+'次');
   					// 后端打印，观察接收值的顺序是否是规律
-  				await this.$AL.post(
+//				await this.$AL.asyncPost(
+  				this.$AL.post(
 							 '/user/test', //请求的地址
 //							method: 'post', //请求的方式
 							{aa:ii} //请求的表单数据
@@ -265,15 +267,21 @@ export default {
         	// 开始提交数据
         	
         	
-        	return ;
+//      	return ;
         	
         	
         	// 修改
-        	this.$axios({
-                url: '/excel/importExcel',//请求的地址
-                method: 'post',//请求的方式
-                data:post_data//请求的表单数据
-            }).then(res => {
+//      	this.$axios(
+//      		{
+//              url: '/excel/importExcel',//请求的地址
+//              method: 'post',//请求的方式
+//              data:post_data//请求的表单数据
+//          }).then(res => {
+        	this.$AL.postData('/excel/importExcel',//请求的地址
+//              method: 'post',//请求的方式
+                post_data//请求的表单数据
+//          }
+        ).then(res => {
             	
             	// console.info('后台返回的数据', res.data);
             	// console.log(res);
@@ -313,7 +321,6 @@ export default {
  components : {
  	tableTest
  }
-  
   
 }
 </script>

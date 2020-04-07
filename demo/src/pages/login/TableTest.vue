@@ -10,6 +10,8 @@
         
         <Button @click="showFdata">显示父组件传递数据</Button>
         
+        <Button @click="testwatch">watch测试</Button>
+        
     </div>
 	
 </template>
@@ -18,7 +20,15 @@
 	import {jsonExport,jsonImport} from '@/api/jsonUtils.js'
 //	import {xxx} from '../static/layui/layui.js'
 	    export default {
+	    
+	    computed: {
 	    	
+	   		 getName: function() {
+	   		 	
+	    	return this.testobj2.name
+	    }
+},
+	    
 	    props:{
 	    	
 	    	fudata : {
@@ -88,6 +98,10 @@
                 
                 slstatus:true,
                 
+                testobj1:{cc:3},
+//              testobj2:{aa:'00',bb:'66'},
+                testobj2:{},
+                
                 zcounter : 0,
                 
             }
@@ -127,6 +141,16 @@
         		
         	},
         	
+        	testwatch(){
+        		
+        		this.testobj1.cc = this.testobj1.cc+1;
+        		
+//      		this.testobj2.aa = 'kkk';   // 修改对象'原来有的'属性，watch可以监听到 否则 ↓↓
+        		this.$set(this.testobj2, 'aa', 'kkk')  // 新增属性需要使用this.$set，watch才能监听到。或者Object.assign({}, this.testobj2, {aa: 'kkk'})
+        		
+        		this.testobj2.name = 'testobj2name';  // 或者 新增属性时，使用computed,然后再在watch
+        		
+        	},
         	
             handleSelectAll (status) {
             	
@@ -218,7 +242,45 @@
 //          })
             	
             }
-        }
+       },
+        
+        watch: {
+        	
+        	// watch数组
+	        exportLists: {
+			　　　　handler(newValue, oldValue) {
+			　　　　　　console.log(newValue)
+			　　　　},
+			　　},
+			
+        	// watch对象的所有(属性)
+	        testobj1: {
+			　　　　handler() {
+			　　　　　　console.log(this.testobj1.cc)
+			　　　　},
+			deep:true
+			},
+			
+        	// watch对象单个属性(前提是对象要有该属性，如果是新增属性时，见方法)
+	        'testobj2.aa' : {
+			　　　　handler(newValue, oldValue) {
+			　　　　　　console.log(newValue)
+			　　　　},
+//			deep:true
+			},
+			
+        	// watch对象 通过computed
+	        getName : {
+			　　　　handler(newValue, oldValue) {
+			　　　　　　console.log(newValue)
+			　　　　},
+//			deep:true
+			},
+			
+			
+       },
+        
+        
     }
 	
 	
