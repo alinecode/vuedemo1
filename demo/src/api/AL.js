@@ -53,37 +53,7 @@ ALA.postData = function(_url, _data) {
 }
 
 
-ALA.asyncPost = function(_url, _data){
-	
-	
-	return getuser(_url,_data);
-	
-}
 
-//async function getuser(_url, _data) {
-//try {
-////  const response = await axios.get('/user?ID=12345');
-//
-//for (var ii=0 ; ii<10 ;ii++) {
-//	
-////	const  xx = await axios.get(_url+"?access_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsib2F1dGgyLXJlc291cmNlIl0sInVzZXJfbmFtZSI6IjEiLCJzY29wZSI6WyJhbGwiXSwib3JnYW5pemF0aW9uIjoiMUFM55qE5rWL6K-VIiwiZXhwIjoxNTg1MDUyNzU5LCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiNTc2MjNlYmQtNmM4ZS00ODE4LTk1MjItMDBiYTFhNDc2YzdkIiwiY2xpZW50X2lkIjoiemRlbW8ifQ.Y-zDvx1gY7TN-OGdxqaA-S8TQ4v2_o0tHrfqL1DAd0t31Fdq9dt3qfiLbQp7bi71vFPF8boyVv2qRHzg-V1oDdlox-p9L2Gbih8Q8X7EeSCoQJnMfhLnN4S15vl_PwT8e2kb_rGoxoteTdx9SqAmhMdu6Ua1p7kO-bepub4A0B0&aa="+_data.aa);
-////	console.log(xx)
-//
-// 	const  xx =  await ALA.ajax({
-//		url: _url,
-//		method: 'post',
-//		params: {aa:ii}
-//	});
-//	
-//	console.log(xx)
-//	
-//}
-//
-// 
-//} catch (error) {
-////  console.error(error);
-//}
-// }
 
 
 
