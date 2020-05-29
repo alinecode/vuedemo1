@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/pages/login/HelloWorld'
 import login from '@/pages/login/Login'
+import tes from '@/pages/login/tes'
 
 
 Vue.use(Router)
@@ -33,7 +34,16 @@ export default new Router({
         title: 'login',
         type: '' // 不需要鉴权
       }
-		}
+		},
+    {
+			path: '/tes',
+			name: 'tes',
+			component: tes,
+			meta: {
+        title: 'login',
+        type: '' // 不需要鉴权
+      }
+		},
     
   ]
 })
