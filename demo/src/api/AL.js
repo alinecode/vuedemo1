@@ -39,6 +39,15 @@ ALA.get = function(_url, _data) {
 		params: _data
 	});
 }
+// 
+ALA.getdownload = function(_url, _data) {
+	return ALA.ajax({
+		url: _url,
+		method: 'GET',
+		params: _data,
+		responseType: 'blob',
+	});
+}
 
 // 提交json requestbody
 ALA.postData = function(_url, _data) {
