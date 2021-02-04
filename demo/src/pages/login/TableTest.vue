@@ -124,7 +124,7 @@ export default {
           } else {
 
 saveAs(
-  new Blob([res]),
+  new Blob([res.data]),  // 里面传blob对象才可以
   '专项计划项目'
 );
 
