@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/pages/login/HelloWorld'
 import login from '@/pages/login/Login'
 import tes from '@/pages/login/tes'
+import bgshow from '@/pages/login/bgshow'
 
 
 Vue.use(Router)
@@ -32,6 +33,16 @@ export default new Router({
 			component: login,
 			meta: {
         title: 'login',
+        type: '' // 不需要鉴权
+      }
+		},
+    
+    {
+			path: '/bgshow',
+			name: 'bgshow',
+			component: bgshow,
+			meta: {
+        title: 'bgshow',
         type: '' // 不需要鉴权
       }
 		},

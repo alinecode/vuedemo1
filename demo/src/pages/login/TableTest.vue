@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { jsonExport, jsonImport } from '@/api/jsonUtils.js'
+import { jsonExport, jsonImport } from "@/api/jsonUtils.js";
 import docxtemplater from "docxtemplater";
 import JSZip from "jszip";
 import JSZipUtils from "jszip-utils";
@@ -32,14 +32,14 @@ import JSZipUtils from "jszip-utils";
 export default {
   computed: {
     getName: function () {
-      return this.testobj2.name
+      return this.testobj2.name;
     },
   },
 
   props: {
     fudata: {
       type: String,
-      default: '',
+      default: "",
     },
   },
 
@@ -47,56 +47,100 @@ export default {
     return {
       columns4: [
         {
-          type: 'selection',
+          type: "selection",
           width: 60,
-          align: 'center',
+          align: "center",
         },
         {
-          title: 'Name',
-          key: 'name',
+          title: "Name",
+          key: "name",
         },
         {
-          title: 'Age',
-          key: 'age',
+          title: "Age",
+          key: "age",
         },
         {
-          title: 'Address',
-          key: 'address',
+          title: "Address",
+          key: "address",
+        },
+
+        {
+          title: "Action",
+          key: "action",
+          width: 350,
+          align: "center",
+          render: (h, params) => {
+            return h("div", [
+              h(
+                "Button",
+                {
+                  props: {
+                    type: "primary",
+                    size: "small",
+                  },
+                  style: {
+                    marginRight: "5px",
+                  },
+                  on: {
+                    click: () => {
+                      this.bgshow(params.row);
+                    },
+                  },
+                },
+                "查看表格"
+              ),
+              h(
+                "Button",
+                {
+                  props: {
+                    type: "success",
+                    size: "small",
+                  },
+                  on: {
+                    click: () => {
+                      this.bgedit(params.row);
+                    },
+                  },
+                },
+                "可编辑表格"
+              ),
+            ]);
+          },
         },
       ],
       data1: [
         {
-          id: '111',
-          name: 'John Brown',
+          id: "111",
+          name: "John Brown",
           age: 18,
-          address: 'New York No. 1 Lake Park',
-          date: '2016-10-03',
+          address: "New York No. 1 Lake Park",
+          date: "2016-10-03",
         },
         {
-          id: '222',
-          name: 'Jim Green',
+          id: "222",
+          name: "Jim Green",
           age: 24,
-          address: 'London No. 1 Lake Park',
-          date: '2016-10-01',
+          address: "London No. 1 Lake Park",
+          date: "2016-10-01",
         },
         {
-          id: '333',
-          name: 'Joe Black',
+          id: "333",
+          name: "Joe Black",
           age: 30,
-          address: 'Sydney No. 1 Lake Park',
-          date: '2016-10-02',
+          address: "Sydney No. 1 Lake Park",
+          date: "2016-10-02",
         },
         {
-          id: '444',
-          name: 'Jon Snow',
+          id: "444",
+          name: "Jon Snow",
           age: 26,
-          address: 'Ottawa No. 2 Lake Park',
-          date: '2016-10-04',
+          address: "Ottawa No. 2 Lake Park",
+          date: "2016-10-04",
         },
       ],
 
       exportLists: [],
-      exportFileType: 'xlsx', //导出的文件类型
+      exportFileType: "xlsx", //导出的文件类型
 
       slstatus: true,
 
@@ -105,9 +149,25 @@ export default {
       testobj2: {},
 
       zcounter: 0,
-    }
+    };
   },
   methods: {
+    bgshow() {
+      let routeUrl = this.$router.resolve({
+        path: "/bgshow",
+        query: { flag: 1 },
+      });
+      window.open(routeUrl.href, "_blank");
+    },
+
+    bgedit() {
+      let routeUrl = this.$router.resolve({
+        path: "/bgshow",
+        query: { flag: 2 },
+      });
+      window.open(routeUrl.href, "_blank");
+    },
+
     /**
      * @description: 下载文件 测试
      * @param {type}
@@ -116,43 +176,41 @@ export default {
     testdownload() {
       this.$AL
         .getdownload(
-          '/download/test', // 请求的地址
+          "/download/test" // 请求的地址
           // method: 'post', // 请求的方式
           // { aa: 'ii' }, // 请求的表单数据
           // { responseType: 'blob' },
         )
         .then((res) => {
-          console.info('后台返回的数据', res.data);
+          console.info("后台返回的数据", res.data);
           console.log(res);
           if (!res.data) {
-            this.$Message.error('错误')
+            this.$Message.error("错误");
           } else {
+            saveAs(
+              new Blob([res.data]), // 里面传blob对象才可以
+              "专项计划项目"
+            );
 
-saveAs(
-  new Blob([res.data]),  // 里面传blob对象才可以
-  '专项计划项目'
-);
+            // saveAs(
+            //   new Blob([res], {
+            //     type:
+            //       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            //   }),
+            //   '专项计划项目'
+            // );
 
-// saveAs(
-//   new Blob([res], {
-//     type:
-//       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-//   }),
-//   '专项计划项目'
-// );
-
-            console.log(res.data)
-
+            console.log(res.data);
           }
 
           // console.info("完毕");
         })
         .catch((err) => {
-          this.$Message.error('网络异常!')
+          this.$Message.error("网络异常!");
 
-          console.info('报错的信息', err)
+          console.info("报错的信息", err);
           // console.info('报错的信息', err.response.message);
-        })
+        });
     },
 
     /**
@@ -161,7 +219,7 @@ saveAs(
      *
      */
     childMethodTest(e) {
-      console.log('我是TableTest的childMethodTest，我被调用了-----' + e)
+      console.log("我是TableTest的childMethodTest，我被调用了-----" + e);
     },
 
     /**
@@ -170,7 +228,7 @@ saveAs(
      *
      */
     zcfTestCcom() {
-      this.$emit('zcfTest', '我是子数据' + (this.zcounter += 1))
+      this.$emit("zcfTest", "我是子数据" + (this.zcounter += 1));
     },
     /**
      *
@@ -178,33 +236,33 @@ saveAs(
      *
      */
     showFdata() {
-      console.log(this.fudata)
+      console.log(this.fudata);
     },
 
     testwatch() {
-      this.testobj1.cc = this.testobj1.cc + 1
+      this.testobj1.cc = this.testobj1.cc + 1;
 
       //      		this.testobj2.aa = 'kkk';   // 修改对象'原来有的'属性，watch可以监听到 否则 ↓↓
-      this.$set(this.testobj2, 'aa', 'kkk') // 新增属性需要使用this.$set，watch才能监听到。或者Object.assign({}, this.testobj2, {aa: 'kkk'})
+      this.$set(this.testobj2, "aa", "kkk"); // 新增属性需要使用this.$set，watch才能监听到。或者Object.assign({}, this.testobj2, {aa: 'kkk'})
 
-      this.testobj2.name = 'testobj2name' // 或者 新增属性时，使用computed,然后再在watch
+      this.testobj2.name = "testobj2name"; // 或者 新增属性时，使用computed,然后再在watch
     },
 
     handleSelectAll(status) {
-      this.$refs.selection.selectAll(this.slstatus)
-      this.slstatus = !this.slstatus
+      this.$refs.selection.selectAll(this.slstatus);
+      this.slstatus = !this.slstatus;
     },
     selectionChange(value) {
       //          	console.log(value);
 
-      this.exportLists = value
+      this.exportLists = value;
     },
 
-exportword(){
-  // npm需引入组件
-// cnpm install docxtemplater@3.17.9 --save
-// cnpm install jszip@2.6.1 --save
-// cnpm install jszip-utils@0.1.0 --save
+    exportword() {
+      // npm需引入组件
+      // cnpm install docxtemplater@3.17.9 --save
+      // cnpm install jszip@2.6.1 --save
+      // cnpm install jszip-utils@0.1.0 --save
 
       // 读取并获得模板文件的二进制内容
       JSZipUtils.getBinaryContent(
@@ -223,10 +281,8 @@ exportword(){
 
           // 设置模板变量的值
           doc.setData({
-            
-            bl1:'bl1',
-            bl2:[{'xx':'11','yy':'22'}]
-
+            bl1: "bl1",
+            bl2: [{ xx: "11", yy: "22" }],
           });
 
           try {
@@ -251,32 +307,31 @@ exportword(){
               "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
           });
           // 将目标文件对象保存为目标类型的文件，并命名
-          saveAs(out, "导出名称-"+".docx");
+          saveAs(out, "导出名称-" + ".docx");
         }.bind(this)
       );
-    
-},
+    },
 
     exportExcle() {
       if (this.exportLists.length == 0) {
-        this.$Message.error('没有选择数据')
+        this.$Message.error("没有选择数据");
 
-        return false
+        return false;
       }
 
-      var idList = ''
+      var idList = "";
 
       this.exportLists.forEach((item) => {
-        idList += ',' + item.id
-      })
+        idList += "," + item.id;
+      });
 
-      idList = idList.substr(1)
+      idList = idList.substr(1);
 
       //				JSON.parse()
 
       //				console.log(JSON.stringify(this.exportLists));
 
-      jsonExport(this.exportLists, this.exportFileType, '测试')
+      jsonExport(this.exportLists, this.exportFileType, "测试");
 
       //          	console.log(idList);
 
@@ -327,22 +382,22 @@ exportword(){
     // watch数组
     exportLists: {
       handler(newValue, oldValue) {
-        console.log(newValue)
+        console.log(newValue);
       },
     },
 
     // watch对象的所有(属性)
     testobj1: {
       handler() {
-        console.log(this.testobj1.cc)
+        console.log(this.testobj1.cc);
       },
       deep: true,
     },
 
     // watch对象单个属性(前提是对象要有该属性，如果是新增属性时，见方法)
-    'testobj2.aa': {
+    "testobj2.aa": {
       handler(newValue, oldValue) {
-        console.log(newValue)
+        console.log(newValue);
       },
       //			deep:true
     },
@@ -350,12 +405,12 @@ exportword(){
     // watch对象 通过computed
     getName: {
       handler(newValue, oldValue) {
-        console.log(newValue)
+        console.log(newValue);
       },
       //			deep:true
     },
   },
-}
+};
 </script>
 
 <style>
