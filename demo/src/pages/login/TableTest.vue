@@ -9,7 +9,9 @@
     ></Table>
     <Button @click="handleSelectAll(true)">全选</Button>
     <!--<Button @click="handleSelectAll(false)">Cancel all selected</Button>-->
-    <Button @click="exportExcle">导出</Button>
+    <Button @click="exportExcle">导出Excel</Button>
+
+    <Button @click="exportword">导出Word</Button>
 
     <Button @click="zcfTestCcom">向父组件传数据</Button>
 
@@ -23,6 +25,9 @@
 
 <script>
 import { jsonExport, jsonImport } from '@/api/jsonUtils.js'
+import docxtemplater from "docxtemplater";
+import JSZip from "jszip";
+import JSZipUtils from "jszip-utils";
 //	import {xxx} from '../static/layui/layui.js'
 export default {
   computed: {
@@ -194,6 +199,64 @@ saveAs(
 
       this.exportLists = value
     },
+
+exportword(){
+  // npm需引入组件
+// cnpm install docxtemplater@3.17.9 --save
+// cnpm install jszip@2.6.1 --save
+// cnpm install jszip-utils@0.1.0 --save
+
+      // 读取并获得模板文件的二进制内容
+      JSZipUtils.getBinaryContent(
+        "/static/words/导出模板.docx",
+        function (error, content) {
+          // input.docx是模板。我们在导出的时候，会根据此模板来导出对应的数据
+          // 抛出异常
+          if (error) {
+            throw error;
+          }
+
+          // 创建一个JSZip实例，内容为模板的内容
+          let zip = new JSZip(content);
+          // 创建并加载docxtemplater实例对象
+          let doc = new docxtemplater().loadZip(zip);
+
+          // 设置模板变量的值
+          doc.setData({
+            
+            bl1:'bl1',
+            bl2:[{'xx':'11','yy':'22'}]
+
+          });
+
+          try {
+            // 用模板变量的值替换所有模板变量
+            doc.render();
+          } catch (error) {
+            // 抛出异常
+            let e = {
+              message: error.message,
+              name: error.name,
+              stack: error.stack,
+              properties: error.properties,
+            };
+            console.log(JSON.stringify({ error: e }));
+            throw error;
+          }
+
+          // 生成一个代表docxtemplater对象的zip文件（不是一个真实的文件，而是在内存中的表示）
+          let out = doc.getZip().generate({
+            type: "blob",
+            mimeType:
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          });
+          // 将目标文件对象保存为目标类型的文件，并命名
+          saveAs(out, "导出名称-"+".docx");
+        }.bind(this)
+      );
+    
+},
+
     exportExcle() {
       if (this.exportLists.length == 0) {
         this.$Message.error('没有选择数据')
